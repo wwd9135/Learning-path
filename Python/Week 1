@@ -1,1 +1,194 @@
 // Here I will paste the code/ project I've produced week 1.
+
+LOG PARSER
+import json  
+
+#import subprocess 
+#* This all works well, but the issue is processing so much data in PowerShell and moving it around several times throughout variables/ pipeline takes a couple minutes
+# I was able to shortern the time to a minute or so, and will test the log parsing logic on a filled out file I now have instead of running a new script everytime.
+#IdInput = input("Enter an event log ID")
+#DateInput = input("Enter a date/time in the format: YYYY/MM/DD HH/mm/ss")
+#completed = subprocess.run(
+#    [ "powershell", 
+#"-File", r"C:\Users\theri\OneDrive\Documents\WindowsPowerShell\Scripts\LogParser.ps1", 
+#"-Date", DateInput, 
+#"-IDinput", IdInput ],
+#capture_output=True, text=True
+#)
+#print("PowerShell returned:", completed.stdout.strip())
+def InputTaker(user_input):
+    RowCount = 0
+    UserRequest = []
+    inpu = str(user_input)
+
+    WarningCount = 0
+    SuccessCount = 0
+
+    # IMPORTANT: PowerShell Out-File defaults to UTF-16
+    with open(
+        r"C:\Users\theri\OneDrive\Documents\WindowsPowerShell\Scripts\LogResult.json",
+        "r",
+        encoding="utf-16"
+    ) as file:
+        for row in file:
+            RowCount += 1
+
+            if RowCount < 22:
+                continue
+
+            # Skip blank lines
+            if row.strip() == "":
+                continue
+
+            # Count warnings
+            if "warning" in row.lower():
+                WarningCount += 1
+              
+
+            # Count successes
+            if "success" in row.lower():
+                SuccessCount += 1
+                continue
+
+            # Keyword match
+            if inpu in row:
+                UserRequest.append(row)
+                continue
+
+        Summary = {
+        "Total Row count": RowCount,
+        "Count of 'Warning' messages": WarningCount,
+        "Count of Success messages": SuccessCount,
+        "Row containing keyword": UserRequest,
+    }
+
+    # Write summary as plain text (Python dict string)
+    with open(
+        r"C:\Users\theri\OneDrive\Documents\WindowsPowerShell\Scripts\summary.txt",
+        "w",
+        encoding="utf-8"
+    ) as file:
+        file.write(str(Summary))
+
+
+# Get the actual value from the user
+user_keyword = input("Enter a keyword you'd like to scan for: ")
+InputTaker(user_keyword)
+
+////
+# Finished
+print(type(3 / 2)) # Integer, no decimal places.
+print(type(3 // 2))  #This is a float, as it takes decimal points
+
+a = 5
+a +=1
+print (a)
+a = a + 1
+print(a)
+#The above gives the same answers .
+
+#3. What happens here? I think x becomes both Y + Z's content, and declares itself as a list, then appends (Adds to) 1, and print Y will be zero since I didnt add anything to x, before I declared x = y = z
+x = y = z = []
+x.append(1)
+print(y)  # Shock- this actually means, they now all point to the same section in memory.
+
+#4.Since log function prints instead of returns, it's an action & print result is None since it's not been given anything.
+def log(msg):
+    print(msg)
+
+result = log("hi")
+print(result)  # None
+
+# 5. Test- check if a number is odd or even
+def yesbro(self):
+    for i in range(20):
+        if i % 2 == 0:
+            print(f"Even:{i}")
+        else:
+            print(f"Uneven:{i}" )
+yesbro(None)
+
+# 6. check if a number is inbetween 10 & 20.
+import random
+nums = [random.randint(1, 30) for _ in range(20)]
+new = []
+FailureCount = 0
+for i in nums:
+    if i >=10 and i <= 20:
+        new.append(i)
+    else: 
+        FailureCount +=1
+print(FailureCount)
+print(new)
+
+#7. This one, prints elements in gaps of 2, between range 1-10
+for i in range(1, 10,2):
+    print(i)
+
+#8. rewrite a for loop using a while
+i = 0
+while i < 5:
+    print(i)
+    i +=1
+
+# func that takes list of int, finds average.
+List = 0
+def numberTaker (Lis):
+    if Lis == None:
+        return None
+    else:
+        avg = sum(Lis) / len(Lis)
+    print(avg)
+
+nums = [random.randint(1, 30) for _ in range(20)]
+numberTaker(nums)
+
+def add_item(item, lst=None): # I fixed this by removing lst = [] in the function call, as this reuses the same lst over and over again unless you explicitily declare it as none in the function call.
+    if lst is None:
+        lst = []
+    lst.append(item)
+    return lst
+print(add_item (2))
+
+# What does below print? they're asking if a gets altered by the function call, it doesn't as a isnt explicitly declared during the func call.
+def f(x):
+    x += 1
+
+a = 5
+f(a)
+print(a)
+
+#Write a list comprehension that:
+#Squares even numbers from 0–20
+s = []
+list = list(range(1,21))
+for i in list:
+    if i % 2 == 0:
+        s.append(i *i)
+    else:
+        continue
+print(s)
+
+
+# The following shows 'extend' adds to a set, while appending an actual set ([]) will literally append a set to an existing set.
+nums = list(range(1,12))
+nums.append([1,2])
+print(nums)
+nums = list(range(1,12))
+nums.extend([1,2])
+print(nums)
+
+# Take input, scan for error message, add those errors to a new text file, could easily increase the complexity of this given proper data, eg. have actual error messages
+# And trigger alerts/ fill in the new file with exact times associated with the errors.
+new = []
+with open("test.txt", "r") as file:
+    for row in file:
+        if "ERROR" in row:
+            new.append( row.strip())
+        else:
+            print(f"Success row: {row.strip()}")
+
+with open("error.txt", "w") as file:
+    file.write(str(new))
+
+
