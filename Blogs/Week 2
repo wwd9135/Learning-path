@@ -3,6 +3,10 @@ Week 2:
 CLI file analyser: 
 I built a cli tool that takes file names and analysis's the files using regex and counting lines/ removing duplicates etc. Practiced arg parse, regex and used a function to perform input validation against my argparse arguments entered. I missed one bug- I used raise to print a string, instead of a direct error message+ a string, this was fine but could crash a big program if done incorrectly so better to avoid completely in the future.
 
+Password input CLI tool:
+This was a good lesson in effective input filtering using arg parse and the likes of, I didn't make it production ready as I felt this would be more work than it was worth
+The main goal and outcome was learning intricacies of data and type conversion, input using arg parse, more function practice etc.
+
 2. What I learned (conceptual)
 
 Arg parse: a great library to filter parameters, similar to PowerShells built in help/ parameter functionality so it came to me naturally was just learning the syntax, I appreciate how granular you can be with this while it remains incredibly simple to comprehend, an example of this is adding verbose options, using choice=[0/1/2) etc, which means users can request 3 different kinds of verbose feedback, this is very useful in errors for example, the user could request 2 for full python verbose errors, or 0 for the minimum tailor created error eg. "file doesn’t exist".
