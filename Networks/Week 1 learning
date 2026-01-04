@@ -1,0 +1,33 @@
+Week 1
+I aimed to understand the following core concepts: TCP/OSI models, encapsulation, and what happens when a URL is typed into a users browser.
+
+Tying this knowledge together now I feel as though I have a better working memory of the flow from users interactions being changed to machine readable binary to be transferred by physical media.
+
+A basic recap of OSI by layer:
+7 App layer: Web browser or email for example is used to take user input, in a browser, the URL entered is parsed, the domain extracted from which & the users web browser cache & OS cache is scanned for a IP address that matches this Domain (DNS lookup 1). Then if it isn't cached, the device will connect to their ISP and a DNS server from there, to look-up and recursively search DNS records for the desired domain name, when found,  browser auto sets up a TCP connection to the IP address (a web server presumably). A TLS over TCP connection if HTTPS was used in the browser. From here data is often cached at a CDN instead of the origin server the web provider has. 
+6 Presentation layer: This is where data is formatted to allow it to be usable and presented throughout the app layer, Encoding/ encryption & decryption is done here.
+5 Session layer: Sessions are a conceptual relic so to speak, they are absolved by the app layer in TCP model, an abstract guide book managing session features, session being apps interacting, any process where data needs transferred must have rules like, full duplex :both send data at once, or half: I send then you do we take turns, that’s what session controls+ more.
+4 transport layer: Transport layer is responsible for making sure data transportation is done effectively, TCP or UDP are chosen dependant on data type/ function. What each protocol does is obvious no need to explain. + flow/ port control too.
+3 Network layer: Ip addresses assigned to the frames, then a header added to route the packets acordingly. OSPF used to find most suitable route for the traffic.
+2 data link layer: Packet is framed here, flow control and integrity/ error checking applied to the frames created. A mac address is added to the headers given here. 
+1 physical layer: Ethernet/wifi signals transport the electronic frames split into bits over physical media.
+
+
+Not many big discoveries were made here but it served as great revision and I feel as though I understand this more clearly than I have previously, the clear links between user input/ output and how this is transferred using physical media + the TCP model steps that occur to take the user input/output and convert it to packets>frames> binary( electrical signals)
+I am now seeing the value in learning the basics in such a grim scale of depth,  If I hadnt learned CS fundamentals regarding binary / Hexa again in great detail last week physical layer would gave been monumentally more difficult to comprehend. 
+
+I practiced wireshark to discover how the tool works and the following realisations:
+
+How does a user create a web request from their browser break it down:
+User types URL- browser parses it, finds protocol, domain & path within this, then checks OS and browser cache for DNS entry matching the domain parsed. If not found the browser asks the OS to submit a DNS request, once the DNS is resolved, its cached, and the OS sends a TCP SYN packet to request a handshake with the IP given, this is ACKnowledged, the connection commences, the client provides GET requests, server delivers until a TTL is breached and renegotiation is needed, a FIN packet is delivered when the client is done. Server ACK this. 
+
+What is a port?
+A port is a virtual 16 bit number stored in the TCP/ UDP header of a packet, it simply serves as a director to the correct application in the app layer, it doesn't really exist.
+They are NOT physical gateways.
+They are NOT scanning raw data.
+They are NOT hardware.
+They are simply numbers in a header that the OS uses to route data to the correct process.
+UDP & TCP have their own ports 443 on UDP is QUIC while its HTTPS on TCP.
+
+
+
