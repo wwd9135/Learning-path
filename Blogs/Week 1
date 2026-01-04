@@ -53,3 +53,22 @@ CS fundamentals- I have begun studying harvard CS50, I learnt the ins and outs o
 	• In PowerShell, I also learned that handling large logs requires careful design.
 	• My early scripts passed huge outputs through multiple pipelines and files, which sometimes took up to five minutes to complete.
 	• I improved performance by writing output directly to an Out-File instead of storing everything in variables and overcomplicating the pipeline.
+
+Week 1 CS fundamentals
+How computers represent data
+Computers communicate using binary — sequences of 1s and 0s. Inside a device there are millions of transistors; each transistor is either on (1) or off (0). Reading whether a transistor is on or off is effectively instantaneous, which makes binary very efficient.
+
+Number systems
+Decimal uses digits 0–9 and counts in powers of ten: 10^0,10^1,10^2, etc., giving 1, 10, 100, 1000.
+Binary has two options per digit (0 or 1) and counts in powers of two: 2^0,2^1,2^2,2^3, giving 1, 2, 4, 8, and so on.
+Character encoding
+ASCII originally defined 128 codes (0–127) to cover the traditional US keyboard. It was a 7‑bit system; later, an 8‑bit byte became standard and the upper range (128–255) was used for extended ASCII variants.
+Unicode supports much larger ranges (commonly encoded with 8, 16, or 32 bits), enabling millions of code points for emojis, international scripts, and special characters. Different devices render the same Unicode emoji differently because each device maps the code point to its own glyph.
+Images and video
+A pixel stores color data, typically as three 8‑bit channels (RGB), so one pixel often uses 3 bytes and values like 255/255/255 represent white.
+A video is a rapid sequence of images (frames). More pixels per frame means higher resolution and better quality, but it also requires more storage and bandwidth.
+
+Takeaway-
+Programming is about thinking logically & creatively, finding intuitive/ innovative solutions to problems, and finding ways to use them in a programming language.
+Practice more psuedocde/ planning problems logically before syntax complicates it.
+
