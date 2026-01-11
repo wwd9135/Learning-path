@@ -1,0 +1,84 @@
+Week 3
+	1. What I built:
+Python CLI tool 2.0:
+I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data, as long as input is filtered correctly and the user enters a working file path, then the rest of the program will function there's no room for error really. However, I intend to implement logging to more complex security scripts etc so the skills learned weren't in vain. 
+• Why did you introduce classes?
+Classes were valuable in creating effective OOP, I can now call tried and tested functions from my own module,  instead of having one massive script or uncertainty trying to achieve the same goal using Global vars etc to handle input/ output results. I focused on Single responsibility to ensure that each function did one action towards the classes bigger goal, in this instance of file handling.
+
+• Why you separated CLI from logic
+I knew logic and CLI code were spot on, but wanted less mess on my __main__.py script and using OOP to turn logic/ CLI into their own modules, helped in turn to reduce the overall amount of bugs and streamline the debugging process.
+
+• Why logging beats print
+Logging can be saved and stored permanently, say you are running an automatic script and want to capture errors etc, you wouldn’t get that if you didn’t run the script then sit and watch for print outputs which is of course impractical, so having a structured logging process to ensure data isn't lost is effective.
+
+What confused me:
+I used to be confused about where data actually lives while a program is running. I wasn’t sure when the CPU was writing to RAM, when it was writing to the hard drive, or whether RAM itself acted like a cache. I didn’t realise the CPU had its own dedicated cache and assumed RAM was the cache.
+
+Now I understand the hierarchy much better. RAM holds the working data for the current session, but it’s still much slower than the CPU. When the system powers off, anything in RAM is lost, and only the data explicitly saved by the operating system or applications is written to the hard drive or SSD.
+
+The CPU, however, has its own built‑in cache—tiny, extremely fast, and very expensive memory. This cache stores only the most performance‑critical data, the things the CPU is likely to need again very soon. It uses the same basic idea as all memory systems: data is stored at specific addresses in a structured layout. The difference is that the CPU cache organises this data into cache lines and lookup tables that allow the processor to check extremely quickly whether the data it needs is already there.
+In short:
+	• Hard drive/SSD → long‑term storage
+	• RAM → fast, temporary working memory for the whole system
+	• CPU cache → ultra‑fast, tiny memory for the CPU’s immediate needs
+Full notes to support this are in CS fundamentals oneNote.
+
+CPU Cache ^
+
+I was also confused regarding HTTP caching, as learning the entire process from URL to DNS query>  web server> data back to client. Is complex. I understand it rather well now.
+
+
+Networks consolidation:
+ Q1 — How does NAT work and why is subnetting important? 
+How NAT Works
+	• Most LANs use private IPv4 addresses (e.g., 192.168.x.x, 10.x.x.x, 172.16–31.x.x).
+	• These addresses cannot be routed on the public internet.
+	• When a device with a private IP sends traffic out of the LAN, the router performs NAT (Network Address Translation).
+	• NAT rewrites:
+		○ The source IP (private → public)
+		○ Often the source port (PAT)
+	• The router stores this in a translation table, so when replies return, it knows which internal device to forward them to.
+This allows:
+	• Hundreds of internal devices to share one public IP
+	• Conservation of IPv4 address space
+	• A basic security layer (internal hosts aren’t directly exposed)
+
+IPv6 and NAT
+	• IPv6 has 128‑bit addresses, giving an astronomically large address space (Doesn’t need NAT therefor)
+	• Every device can have a globally unique address.
+	• IPv6 uses prefix types (global unicast, link‑local, unique local, multicast), but routers do not rewrite addresses like NAT.
+	• Instead, IPv6 relies on firewalls for protection, not NAT.
+
+Why Subnetting Is Important
+Subnetting allows you to divide a larger network into smaller, structured segments. This is essential for:
+	• Efficient IP allocation (avoid wasting addresses)
+	• Broadcast domain control (limit unnecessary traffic)
+	• Security boundaries (e.g., servers vs. clients)
+	• Routing efficiency (clear network hierarchy)
+
+Q2 — What can go wrong when networks aren’t subnetted correctly? 
+Problems Caused by Incorrect Subnetting
+1. Devices can’t communicate
+If two devices should be in the same subnet but aren’t:
+	• ARP fails
+	• They send traffic to the router unnecessarily
+	• Or they can’t reach each other at all
+2. Broadcast traffic leaks or fails
+Bad subnetting can cause:
+	• Broadcasts reaching the wrong hosts
+	• Broadcasts not reaching the intended hosts
+	• Excessive broadcast traffic in oversized subnets
+3. Routing failures
+Incorrect subnet masks can cause:
+	• Routing loops
+	• Black holes
+	• Traffic being sent to the wrong gateway
+4. IP address conflicts
+If two subnets overlap due to incorrect masks:
+	• Devices may think they’re on the same network when they aren’t
+	• ARP replies collide
+	• Connectivity becomes unpredictable
+5. Internet access failures
+If the default gateway is in a different subnet than the host (mask mismatch), the host cannot reach it.
+
+
