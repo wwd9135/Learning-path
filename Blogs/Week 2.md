@@ -1,4 +1,3 @@
-Week 2: 
 1. What I built
 CLI file analyser: 
 I built a cli tool that takes file names and analysis's the files using regex and counting lines/ removing duplicates etc. Practiced arg parse, regex and used a function to perform input validation against my argparse arguments entered. I missed one bug- I used raise to print a string, instead of a direct error message+ a string, this was fine but could crash a big program if done incorrectly so better to avoid completely in the future.
