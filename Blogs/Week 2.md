@@ -1,83 +1,210 @@
-1. What I built
-CLI file analyser: 
-I built a cli tool that takes file names and analysis's the files using regex and counting lines/ removing duplicates etc. Practiced arg parse, regex and used a function to perform input validation against my argparse arguments entered. I missed one bug- I used raise to print a string, instead of a direct error message+ a string, this was fine but could crash a big program if done incorrectly so better to avoid completely in the future.
+# Learning Log: CLI Development, Python Internals, Networking & CS Fundamentals
 
-Password input CLI tool:
-This was a good lesson in effective input filtering using arg parse and the likes of, I didn't make it production ready as I felt this would be more work than it was worth
-The main goal and outcome was learning intricacies of data and type conversion, input using arg parse, more function practice etc.
+This repository documents a focused period of learning where I deliberately worked at the fundamentals level. The goal was not to build production-ready tools, but to understand *why* systems behave the way they do — from Python internals, to networking flow, to low-level computing concepts in C.
 
-2. What I learned (conceptual)
+---
 
-Arg parse: a great library to filter parameters, similar to PowerShells built in help/ parameter functionality so it came to me naturally was just learning the syntax, I appreciate how granular you can be with this while it remains incredibly simple to comprehend, an example of this is adding verbose options, using choice=[0/1/2) etc, which means users can request 3 different kinds of verbose feedback, this is very useful in errors for example, the user could request 2 for full python verbose errors, or 0 for the minimum tailor created error eg. "file doesn’t exist".
+## 1. Projects Built
 
-Virtual environments: These are useful but they are quite a niche use case for me personally, the main strength, is allowing package installations to be different on the same machine, so for example you could have one env with default python packages, and a virtual env with a couple of your choice, or the default packages with better version control etc.
+### CLI File Analysis Tool
+I built a command-line tool that accepts file paths and analyses file contents using:
+- Regular expressions
+- Line counting
+- Duplicate detection and removal
 
+This project was mainly about strengthening core Python skills:
+- Argument parsing using `argparse`
+- Input validation via dedicated functions
+- Regex usage for structured text analysis
 
-Why python scope is the way it is: I didn't remember the names for scope so did a recap, I've learnt that using global variables is bad form as if multiple functions use the same global variable there could be errors that effect the subsequent functions,  passing information using arguments is more efficient and easier to control. I also learned the scope names again, built in, global, local, non-local, built in is the pre-existing functions & variables on every python instance, eg. Print(). Global being any variables declared outside a function. Local the variables declared within the scope of functions. Non local scope is used when a nested function wants to call a variable from its parent function, you'd do the following.
+**Key mistake identified:**  
+I used `raise` with a string instead of raising a proper exception type. While this worked in isolation, it would be unsafe in a larger program and could cause unhandled crashes. The takeaway was clear: always raise explicit exception types with meaningful messages.
 
-X = 1 
-Def outer():
-	X = 2
-	Def inner():
-	       global x # Makes x 1
-	       nonlocal x # Makes x 2
-	       x = x +4 
-	       print(x) # Would return 5, if I hadn't declared nonlocal it would raise an error on above line and if I removed that it would print 1 as it would still find the x in the higher scope it just can't be altered until its explicitly changed to the inner local scope.
-3. What confused me
-I didn’t understand mutable vs non mutable character types.
-I encountered a situation where a list was being mutated but an integer wasn’t, which made the function’s behaviour look unusual if you don’t understand mutability. In Python, some data types are mutable (like lists, dictionaries, and sets), meaning they can be changed in place. When I pass a mutable object like a list into a function, the function receives a reference to the same underlying object, so modifying it inside the function also modifies the original list in memory.
-Integers, however, are immutable. If I pass an integer to a function and the function tries to “modify” it, Python doesn’t change the original integer. Instead, it creates a new integer object and binds the local variable to that new value. The original integer outside the function remains unchanged because immutable objects do not share modifiable memory in the same way mutable objects do
+---
 
-I made a couple mistakes using global variables instead of parameters at times, messy as dozens of functions using the same global var is inherently asking for trouble. It worked for me in this simple program but the lesson was spotted and duly noted.
-Also used recursion poorly quite often, I was calling entire functions again instead of simple loops.
+### Password Input CLI Tool
+This tool focused on input handling and filtering rather than completeness or security hardening.
 
-Networks summary:
-I aimed to understand the following core concepts: TCP/OSI models, encapsulation, and what happens when a URL is typed into a users browser.
+Primary learning outcomes:
+- Deeper understanding of `argparse`
+- Type conversion and validation
+- Writing clearer, more defensive functions
 
-Tying this knowledge together now I feel as though I have a better working memory of the flow from users interactions being changed to machine readable binary to be transferred by physical media.
+I intentionally avoided making this production-ready, as the educational value was in understanding the mechanics rather than over-engineering a small utility.
 
-A basic recap of OSI by layer:
-7 App layer: Web browser or email for example is used to take user input, in a browser, the URL entered is parsed, the domain extracted from which & the users web browser cache & OS cache is scanned for a IP address that matches this Domain (DNS lookup 1). Then if it isn't cached, the device will connect to their ISP and a DNS server from there, to look-up and recursively search DNS records for the desired domain name, when found,  browser auto sets up a TCP connection to the IP address (a web server presumably). A TLS over TCP connection if HTTPS was used in the browser. From here data is often cached at a CDN instead of the origin server the web provider has. 
-6 Presentation layer: This is where data is formatted to allow it to be usable and presented throughout the app layer, Encoding/ encryption & decryption is done here.
-5 Session layer: Sessions are a conceptual relic so to speak, they are absolved by the app layer in TCP model, an abstract guide book managing session features, session being apps interacting, any process where data needs transferred must have rules like, full duplex :both send data at once, or half: I send then you do we take turns, that’s what session controls+ more.
-4 transport layer: Transport layer is responsible for making sure data transportation is done effectively, TCP or UDP are chosen dependant on data type/ function. What each protocol does is obvious no need to explain. + flow/ port control too.
-3 Network layer: Ip addresses assigned to the frames, then a header added to route the packets acordingly. OSPF used to find most suitable route for the traffic.
-2 data link layer: Packet is framed here, flow control and integrity/ error checking applied to the frames created. A mac address is added to the headers given here. 
-1 physical layer: Ethernet/wifi signals transport the electronic frames split into bits over physical media.
+---
 
+## 2. Conceptual Learning
 
-Not many big discoveries were made here but it served as great revision and I feel as though I understand this more clearly than I have previously, the clear links between user input/ output and how this is transferred using physical media + the TCP model steps that occur to take the user input/output and convert it to packets>frames> binary( electrical signals)
-I am now seeing the value in learning the basics in such a grim scale of depth,  If I hadnt learned CS fundamentals regarding binary / Hexa again in great detail last week physical layer would gave been monumentally more difficult to comprehend. 
+### Argument Parsing (`argparse`)
+`argparse` stood out as one of Python’s best standard libraries. It provides granular control while remaining readable and intuitive — similar in spirit to PowerShell’s parameter system.
 
-I practiced wireshark to discover how the tool works and the following realisations:
+A particularly useful feature is verbosity control:
+- `0` → minimal, user-friendly errors (e.g. *file not found*)
+- `2` → full Python tracebacks for debugging
 
-How does a user create a web request from their browser break it down:
-User types URL- browser parses it, finds protocol, domain & path within this, then checks OS and browser cache for DNS entry matching the domain parsed. If not found the browser asks the OS to submit a DNS request, once the DNS is resolved, its cached, and the OS sends a TCP SYN packet to request a handshake with the IP given, this is ACKnowledged, the connection commences, the client provides GET requests, server delivers until a TTL is breached and renegotiation is needed, a FIN packet is delivered when the client is done. Server ACK this. 
+This balance between usability and diagnostics is extremely valuable in real tools.
 
-What is a port?
-A port is a virtual 16 bit number stored in the TCP/ UDP header of a packet, it simply serves as a director to the correct application in the app layer, it doesn't really exist.
-They are NOT physical gateways.
-They are NOT scanning raw data.
-They are NOT hardware.
-They are simply numbers in a header that the OS uses to route data to the correct process.
-UDP & TCP have their own ports 443 on UDP is QUIC while its HTTPS on TCP.
+---
 
+### Virtual Environments
+Virtual environments allow multiple Python package configurations on the same system.
 
-Week 2 CS fundamntals:
-Began learning further concepts in CS but mainly focused learning basic C syntax and memory handling etc.
+Their primary benefits:
+- Dependency isolation
+- Version control
+- Avoiding system-wide conflicts
 
-Computer science rests on a few core principles. Correctness means your program must do exactly what it’s supposed to, both logically and syntactically. Design is about writing clean, well‑structured code—choosing good abstractions, organising logic sensibly, and using the language’s features effectively. Style covers readability: spacing, naming, punctuation, and avoiding confusing choices like naming a variable after a built‑in function.
+While not essential for every small project, their value becomes obvious as project complexity grows.
 
-A compiler translates human‑written code into machine code so the computer can execute it. When working in an IDE, the terminal acts as your interface to the underlying system—often a Bash or PowerShell environment—letting you compile, run, and manage files directly.
-C is a compiled language, so you must build an executable before running your program. It also forces you to think about data sizes and memory. A standard int is often 32 bits, giving a range of roughly −2 billion to +2 billion; exceeding that range causes overflow, which is why adding two large values can wrap around into negatives. Larger types like long (typically 64 bits) exist when you need more capacity.
+---
 
-Unlike Python, C demands precision. You must declare data types, match function parameters, and use the correct format specifiers when printing. Python will happily print any object with print(x), but in C you must explicitly tell printf what kind of data you're printing—%d for integers, %s for strings, and so on. This strictness reflects C’s low‑level nature: you’re working much closer to the machine, and the language expects you to understand what’s happening in memory.
+### Python Scope and State Management
+I revisited Python’s scope rules and reinforced why excessive global state is bad practice.
 
-Floating point inprecision: there is a limit to what C can handle, if you print %.50f this means a float to 50 decimal places, but this many cant be comprehended and there are bugs due to this. Truncation is another example of this kind of behaviour, where you divide an int by int, then output it as a float, C throws it all in the garbage.
-Lesson- be attentive to how much data you can max out at, an example is boeing had planes using a 32 bit storage to count up in seconds for a certain function, therefor after 240 days or so the storage would overflow and the entire airplanes power would need to reset, potentially when in flight, a patch was created eventually but this goes to show the real implication of these issues.
+Scope recap:
+- **Built-in**: Predefined functions and objects (e.g. `print`)
+- **Global**: Variables defined outside functions
+- **Local**: Variables defined inside functions
+- **Non-local**: Variables from a parent function used inside nested functions
 
-Compiling occurs in 4 stages:
-	• Pre processing: syntax check, library validity check, uses hash tables to convert code.
-	• Compiling: changing into assembly language, CPU can read this, important to note different OS/CPU's can't process the same data, so the assembly code is often created differently depending on how it'll be processed, twice as much work if you need a windows & MAC version for example
-	• Assembly: changing assembly into binary
-	• Linking: Libraries eg. CS50.h, stdio.h have files inside like cs50.c stdio.c, these subfiles are combined into one binary str, then all libraries are combined with your program to make a big .exe file, containing libraries, dependencies, runtime code etc.
+Using globals across many functions quickly becomes unmanageable. Passing data explicitly via parameters is safer, clearer, and easier to reason about.
+
+---
+
+## 3. Key Confusions Resolved
+
+### Mutable vs Immutable Types
+I encountered behaviour where lists changed inside functions, but integers did not — initially confusing until mutability clicked.
+
+- **Mutable types** (lists, dicts, sets) are modified in place
+- **Immutable types** (ints, strings, tuples) cannot be changed; Python creates new objects instead
+
+Understanding this clarified several behaviours I had previously worked around without fully grasping.
+
+---
+
+### Design Mistakes Noted
+- Overuse of global variables
+- Poor use of recursion where loops were more appropriate
+
+These mistakes didn’t break small scripts but would scale poorly. Catching them early was valuable.
+
+---
+
+## 4. Networking Fundamentals
+
+The aim here was to build a clear mental model of how user actions become network traffic.
+
+Topics revised:
+- OSI and TCP/IP models
+- Encapsulation
+- What actually happens when a user enters a URL
+
+This tied together user input, binary representation, packetisation, and physical transmission in a way that finally felt intuitive.
+
+---
+
+### OSI Model Summary
+
+**Layer 7 – Application**  
+The browser parses the URL, checks browser and OS DNS caches, performs DNS resolution if needed, then establishes a TCP (or TLS over TCP) connection. Content may be served via a CDN rather than the origin server.
+
+**Layer 6 – Presentation**  
+Data formatting, encoding, encryption, and decryption.
+
+**Layer 5 – Session**  
+Session control concepts (largely abstracted into the application layer in TCP/IP).
+
+**Layer 4 – Transport**  
+Protocol selection (TCP vs UDP), port usage, flow control, reliability.
+
+**Layer 3 – Network**  
+IP addressing and routing decisions (e.g. OSPF determining optimal paths).
+
+**Layer 2 – Data Link**  
+Framing, MAC addressing, error detection.
+
+**Layer 1 – Physical**  
+Transmission of bits as electrical or wireless signals.
+
+---
+
+## 5. Wireshark Observations
+
+### How a Web Request Actually Works
+1. User enters a URL
+2. Browser parses protocol, domain, and path
+3. DNS cache checked; OS resolves DNS if required
+4. TCP three-way handshake (`SYN → SYN/ACK → ACK`)
+5. HTTP requests and responses exchanged
+6. Connection closed using `FIN` / `ACK`
+
+---
+
+### What a Port Really Is
+A port is:
+- A 16-bit number in a TCP or UDP header
+- Used by the OS to route traffic to the correct application
+
+Ports are **not**:
+- Physical interfaces
+- Hardware
+- Packet inspectors
+
+Example:
+- TCP 443 → HTTPS
+- UDP 443 → QUIC
+
+---
+
+## 6. Computer Science Fundamentals (C)
+
+### Core Principles
+- **Correctness**: Code must do exactly what it’s supposed to
+- **Design**: Clean abstractions and structure
+- **Style**: Readability, naming, spacing, and clarity
+
+---
+
+### C vs Python
+C is strict and unforgiving:
+- Data types must be declared
+- Function signatures must match
+- Format specifiers must be correct (`%d`, `%s`, etc.)
+
+A standard `int` is usually 32 bits, which introduces real overflow risks.
+
+A real-world example:
+Aircraft systems once used 32-bit counters for timekeeping, causing overflows after long runtimes and forcing system resets mid-flight.
+
+---
+
+### Floating-Point Precision
+Floating-point numbers are approximate:
+- Extreme precision reveals inaccuracies
+- Integer division truncates unless explicitly cast
+
+Lesson learned: always understand the limits of the data types you use.
+
+---
+
+### Compilation Stages
+1. **Preprocessing** – macros and syntax handling
+2. **Compilation** – source code to assembly
+3. **Assembly** – assembly to machine code
+4. **Linking** – combining libraries and dependencies into a final executable
+
+This clarified how libraries like `stdio.h` are incorporated into compiled binaries.
+
+---
+
+## Final Reflection
+There were no dramatic breakthroughs — just steady consolidation.
+
+The biggest gain was a clearer internal model of how:
+- Code becomes instructions
+- Instructions become packets
+- Packets become signals on physical media
+
+Learning fundamentals at depth has already paid off, especially as concepts repeat across different technologies.
