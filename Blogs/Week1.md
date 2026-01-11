@@ -1,5 +1,4 @@
 # Week 1:
--
 ## 1. What I built- Log parser/  Cli todo manager/ Password strength checker.
 
 --
