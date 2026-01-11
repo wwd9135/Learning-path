@@ -1,6 +1,9 @@
-Week 1:
-1. What I built- Log parser/  Cli todo manager/ Password strength checker.
-Log Parser
+# Week 1:
+-
+## 1. What I built- Log parser/  Cli todo manager/ Password strength checker.
+
+--
+### Log Parser
 	• Built a Python-based log parser that triggers a PowerShell script to collect Windows Event Logs.
 	• The PowerShell script gathers logs based on user‑provided event IDs and time ranges.
 	• The Python script then receives this data and filters it using:
