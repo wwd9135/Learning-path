@@ -2,18 +2,20 @@ Week 3
 
 1. What I built: Python CLI tool 2.0:
 
-I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data.
+I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. 
+
+I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data.
 
 As long as input is filtered correctly and the user enters a working file path, then the rest of the program will function there's no room for error really.  
 However, I intend to implement logging to more complex security scripts etc so the skills learned weren't in vain. 
 
-• Why did you introduce classes?
+• Why did you introduce classes:
 Classes were valuable in creating effective OOP, I can now call tried and tested functions from my own module,  instead of having one massive script or uncertainty trying to achieve the same goal using Global vars etc to handle input/ output results. I focused on Single responsibility to ensure that each function did one action towards the classes bigger goal, in this instance of file handling.
 
-• Why you separated CLI from logic
+• Why you separated CLI from logic:
 I knew logic and CLI code were spot on, but wanted less mess on my __main__.py script and using OOP to turn logic/ CLI into their own modules, helped in turn to reduce the overall amount of bugs and streamline the debugging process.
 
-• Why logging beats print
+• Why logging beats print:
 Logging can be saved and stored permanently, say you are running an automatic script and want to capture errors etc, you wouldn’t get that if you didn’t run the script then sit and watch for print outputs which is of course impractical, so having a structured logging process to ensure data isn't lost is effective.
 
 What confused me:
@@ -23,6 +25,7 @@ Now I understand the hierarchy much better. RAM holds the working data for the c
 
 The CPU, however, has its own built‑in cache—tiny, extremely fast, and very expensive memory. This cache stores only the most performance‑critical data, the things the CPU is likely to need again very soon. 
 It uses the same basic idea as all memory systems: data is stored at specific addresses in a structured layout. The difference is that the CPU cache organises this data into cache lines and lookup tables that allow the processor to check extremely quickly whether the data it needs is already there.
+
 In short:
 	• Hard drive/SSD → long‑term storage
 	• RAM → fast, temporary working memory for the whole system
@@ -33,6 +36,7 @@ I was also confused regarding HTTP caching, as learning the entire process from 
 
 Networks consolidation:
  Q1 — How does NAT work and why is subnetting important? 
+ 
 How NAT Works
 	• Most LANs use private IPv4 addresses (e.g., 192.168.x.x, 10.x.x.x, 172.16–31.x.x).
 	• These addresses cannot be routed on the public internet.
@@ -41,6 +45,7 @@ How NAT Works
 		○ The source IP (private → public)
 		○ Often the source port (PAT)
 	• The router stores this in a translation table, so when replies return, it knows which internal device to forward them to.
+	
 This allows:
 	• Hundreds of internal devices to share one public IP
 	• Conservation of IPv4 address space
@@ -66,26 +71,31 @@ If two devices should be in the same subnet but aren’t:
 	• ARP fails
 	• They send traffic to the router unnecessarily
 	• Or they can’t reach each other at all
-2. Broadcast traffic leaks or fails
+
+3. Broadcast traffic leaks or fails
 Bad subnetting can cause:
 	• Broadcasts reaching the wrong hosts
 	• Broadcasts not reaching the intended hosts
 	• Excessive broadcast traffic in oversized subnets
-3. Routing failures
+
+5. Routing failures
 Incorrect subnet masks can cause:
 	• Routing loops
 	• Black holes
 	• Traffic being sent to the wrong gateway
-4. IP address conflicts
+
+7. IP address conflicts
 If two subnets overlap due to incorrect masks:
 	• Devices may think they’re on the same network when they aren’t
 	• ARP replies collide
 	• Connectivity becomes unpredictable
-5. Internet access failures
+
+8. Internet access failures
 If the default gateway is in a different subnet than the host (mask mismatch), the host cannot reach it.#
 
 
-Week 3: ;
+CS basics:
+
 I’ve been learning how memory is handled at the hardware level. RAM is organised into individual bytes, and each byte has its own address.
 Because of this, storing larger data types—like a 4‑byte integer or a long string—requires multiple consecutive memory locations.
 
@@ -96,10 +106,12 @@ To mark the end of the string, a null byte (\0) is added, which tells the system
 CPU Cache
 The CPU cache is a small, high‑speed memory area inside the processor that stores data copied from RAM. 
 It decides what to keep based on temporal and spatial locality, allowing the CPU to access frequently used data much faster. 
+
 This dramatically improves performance because it avoids repeatedly fetching data from slower storage.
 When the CPU needs data from a specific memory address, it first checks the cache.
 	• If the data is found, it’s called a cache hit.
 	• If not, it’s a cache miss, and the CPU must fetch the data from RAM.
+	
 Locality of Reference
 	• Temporal locality: Data that was recently accessed is likely to be accessed again soon.
 	• Spatial locality: Data stored near recently accessed memory locations is also likely to be needed.
