@@ -1,14 +1,13 @@
-# Week 1:
-## 1. What I built- Log parser/  Cli todo manager/ Password strength checker.
+## Week 1:
+# 1. What I built- Log parser/  Cli todo manager/ Password strength checker.
 
---
 ### Log Parser
-	• Built a Python-based log parser that triggers a PowerShell script to collect Windows Event Logs.
-	• The PowerShell script gathers logs based on user‑provided event IDs and time ranges.
-	• The Python script then receives this data and filters it using:
-	• Keyword searches
-	• Detection of warnings and errors
-	• Flagging of specific event IDs
+- Built a Python-based log parser that triggers a PowerShell script to collect Windows Event Logs.
+- The PowerShell script gathers logs based on user‑provided event IDs and time ranges.
+- The Python script then receives this data and filters it using:
+- Keyword searches
+- Detection of warnings and errors
+- Flagging of specific event IDs
 CLI To‑Do List App
 	• Created a command‑line tool to manage user tasks more efficiently.
 	• Used while loops to simulate an “endless” application session that the user can exit manually—similar to how real GUI applications handle continuous interaction.
