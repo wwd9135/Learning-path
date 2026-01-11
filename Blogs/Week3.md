@@ -77,6 +77,43 @@ If two subnets overlap due to incorrect masks:
 	• ARP replies collide
 	• Connectivity becomes unpredictable
 5. Internet access failures
-If the default gateway is in a different subnet than the host (mask mismatch), the host cannot reach it.
+If the default gateway is in a different subnet than the host (mask mismatch), the host cannot reach it.#
+
+
+Week 3: ;
+I’ve been learning how memory is handled at the hardware level. RAM is organised into individual bytes, and each byte has its own address.
+Because of this, storing larger data types—like a 4‑byte integer or a long string—requires multiple consecutive memory locations.
+
+Most data types have a fixed size in memory, but strings are different. A string is essentially an array of characters, and its size depends on how many characters it contains.
+Each character typically occupies one byte, and the characters are stored sequentially in memory. 
+To mark the end of the string, a null byte (\0) is added, which tells the system where the string finishe
+
+CPU Cache
+The CPU cache is a small, high‑speed memory area inside the processor that stores data copied from RAM. 
+It decides what to keep based on temporal and spatial locality, allowing the CPU to access frequently used data much faster. 
+This dramatically improves performance because it avoids repeatedly fetching data from slower storage.
+When the CPU needs data from a specific memory address, it first checks the cache.
+	• If the data is found, it’s called a cache hit.
+	• If not, it’s a cache miss, and the CPU must fetch the data from RAM.
+Locality of Reference
+	• Temporal locality: Data that was recently accessed is likely to be accessed again soon.
+	• Spatial locality: Data stored near recently accessed memory locations is also likely to be needed.
+For example, in a video game, if the program reads the health value of character 1, the health of character 2 is probably stored nearby and may be accessed shortly after.
+These principles guide the CPU in deciding which data should be kept in the cache.
+
+Cache Levels
+Modern CPUs typically use multiple cache levels:
+	• L1 cache – the fastest, smallest, and most expensive per byte
+	• L2 cache – larger and slower than L1
+	• L3 cache – the largest and slowest, but still much faster than RAM
+Each level balances speed, size, and cost.
+
+Instruction vs Data Cache
+Caches are often split into two types:
+	• Instruction cache – stores CPU instructions
+	• Data cache – stores data values and memory addresses for quick access
+This separation helps the CPU fetch instructions and data in parallel, improving efficiency.
+
+
 
 
