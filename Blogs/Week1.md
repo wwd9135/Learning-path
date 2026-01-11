@@ -1,75 +1,73 @@
-## Week 1:
-# 1. What I built- Log parser/  Cli todo manager/ Password strength checker.
+## Week 1 Progress Log
+
+### 1. What I Built
+**Projects:** Log Parser · CLI To-Do Manager · Password Strength Checker
+
+---
 
 ### Log Parser
 - Built a Python-based log parser that triggers a PowerShell script to collect Windows Event Logs.
-- The PowerShell script gathers logs based on user‑provided event IDs and time ranges.
-- The Python script then receives this data and filters it using:
-- Keyword searches
-- Detection of warnings and errors
-- Flagging of specific event IDs
-CLI To‑Do List App
-	• Created a command‑line tool to manage user tasks more efficiently.
-	• Used while loops to simulate an “endless” application session that the user can exit manually—similar to how real GUI applications handle continuous interaction.
-Feature Restraint & Design Decisions
-	• I repeatedly caught myself wanting to add advanced features, but chose not to, as it would complicate the project unnecessarily at this stage.
-	• I considered implementing file‑saving functionality (e.g., letting users choose a file path or automatically saving to the script directory).
-		○ This would require extensive error handling, so I decided against it for now.
-	• I plan to revisit and rebuild this project in a few months when I can implement these features more cleanly, without brute‑forcing solutions.
-Future Improvements
-	• There are many potential enhancements, such as:
-		○ Adding “on hold” status to todo app.
-		○ Allowing comments on tasks
-		○ Expanding functionality similar to Jira
-	• I’m postponing these until I’m more comfortable building a full GUI and implementing stronger error‑handling practices.
-	• Adding advanced features now would likely introduce unnecessary security and functionality issues.
+- The PowerShell script gathers logs based on:
+  - User-provided Event IDs
+  - User-defined time ranges
+- The Python script then processes the output and applies:
+  - Keyword searches  
+  - Detection of warnings and errors  
+  - Flagging of specific Event IDs  
 
-Projects shown in Learning-path/Python/Mini projects at main · wwd9135/Learning-path
-2. What I learned (conceptual)
-I've understood a multitude of python syntax through trial and error, & conceptual knowledge but the standouts were:
-	• I learned about the history of Ascii/ unicode & how the computer works at a lower (electrical) level. Down to how transistors power pass messages using binary (on = 1/ off = 0) and that primitive technique is so quick it's still the main method of power distribution in devices. 
-	• I learnt how to manipulate character types in python, I was having difficulties like the following (most likely as I'm used to PowerShell now)#
-Def Taking_input():
-	Option = (input("Select one of the following options by entering the number eg.1/2/3/4\n1: Add tasks\n2: View tasks \n3: Remove tasks\n4: Save & exit\n"))
-	    global UserBackout 
-	    #if type(Option) != int:
-	     #   Taking_input()
-The above created a endless loop as Option is always a str, even though it only contains a single int, the way I declared it using input seems to default to str input, unless you specifically declare that the input must be of another character type which I experimented with afterward to much success.
-Played around with error messages using try/ except loops, and
+---
 
-print("\033[1;91mTHIS IS BIG ANGRY RED TEXT\033[0m")
-To create noticeable error messages users wont ignore.
+### CLI To-Do List Application
+- Created a command-line tool to manage user tasks efficiently.
+- Used `while` loops to simulate a continuous (“always-on”) application session that the user can exit manually.
+- This mirrors how real GUI applications maintain state and interaction loops.
 
-CS fundamentals- I have begun studying harvard CS50, I learnt the ins and outs of hexidecimal/ binary/ pixels/ ascii/ unicode etc, It was clear I had a basic understanding of these areas but learning more in depth helped it all glue together properly.
+---
 
-3. What Confused Me
-	• File types became a challenge when building my log parser. I initially wanted to use .txt, but Windows Event Logs are naturally structured as JSON.
-	• In PowerShell, I never ran into this issue because it handles different file types easily, especially with Convert-From cmdlets.
-	• Python required a different approach, and I struggled at first because I tried to treat JSON as plain text.
-	• I resolved this by learning proper JSON handling in Python and using the json library to import and process the data cleanly.
-	• This made filtering more fluent and significantly reduced bugs.
-4. Trade-offs & Decisions
-	• I wasted time trying to force Python to parse JSON stored in a .txt format instead of working with the JSON structure directly.
-	• Treating JSON as plain text caused unnecessary logic issues and bugs, especially since JSON is structured data, not a simple string.
-	• In PowerShell, I also learned that handling large logs requires careful design.
-	• My early scripts passed huge outputs through multiple pipelines and files, which sometimes took up to five minutes to complete.
-	• I improved performance by writing output directly to an Out-File instead of storing everything in variables and overcomplicating the pipeline.
+### Feature Restraint & Design Decisions
+- I deliberately avoided adding advanced features early to prevent unnecessary complexity.
+- Considered implementing file persistence (custom save paths or auto-saving to the script directory), but decided against it due to:
+  - Increased error-handling requirements
+  - Risk of overengineering at this stage
+- Plan to revisit and rebuild this project later with cleaner architecture and better abstractions.
 
-Week 1 CS fundamentals
-How computers represent data
-Computers communicate using binary — sequences of 1s and 0s. Inside a device there are millions of transistors; each transistor is either on (1) or off (0). Reading whether a transistor is on or off is effectively instantaneous, which makes binary very efficient.
+---
 
-Number systems
-Decimal uses digits 0–9 and counts in powers of ten: 10^0,10^1,10^2, etc., giving 1, 10, 100, 1000.
-Binary has two options per digit (0 or 1) and counts in powers of two: 2^0,2^1,2^2,2^3, giving 1, 2, 4, 8, and so on.
-Character encoding
-ASCII originally defined 128 codes (0–127) to cover the traditional US keyboard. It was a 7‑bit system; later, an 8‑bit byte became standard and the upper range (128–255) was used for extended ASCII variants.
-Unicode supports much larger ranges (commonly encoded with 8, 16, or 32 bits), enabling millions of code points for emojis, international scripts, and special characters. Different devices render the same Unicode emoji differently because each device maps the code point to its own glyph.
-Images and video
-A pixel stores color data, typically as three 8‑bit channels (RGB), so one pixel often uses 3 bytes and values like 255/255/255 represent white.
-A video is a rapid sequence of images (frames). More pixels per frame means higher resolution and better quality, but it also requires more storage and bandwidth.
+### Future Improvements
+Potential enhancements identified but intentionally deferred:
+- “On hold” task status
+- Task comments
+- Expanded functionality similar to Jira-style task tracking
 
-Takeaway-
-Programming is about thinking logically & creatively, finding intuitive/ innovative solutions to problems, and finding ways to use them in a programming language.
-Practice more psuedocde/ planning problems logically before syntax complicates it.
+These will be revisited once I am more confident with:
+- GUI development
+- Robust error handling
+- Secure file operations
 
+Adding them now would likely introduce unnecessary complexity and security risks.
+
+---
+
+### Project Repository
+Projects are available under:  
+`Learning-path/Python/Mini-projects`  
+Repository: **wwd9135/Learning-path**
+
+---
+
+## 2. What I Learned (Conceptual)
+
+### Python Fundamentals
+- Gained a stronger understanding of Python syntax through trial, error, and debugging.
+- Learned about character types and input handling.
+
+Example issue encountered:
+```python
+def taking_input():
+    option = input(
+        "Select an option:\n"
+        "1: Add tasks\n"
+        "2: View tasks\n"
+        "3: Remove tasks\n"
+        "4: Save & exit\n"
+    )
