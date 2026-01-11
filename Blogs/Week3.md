@@ -1,136 +1,192 @@
-1. What I built: Python CLI tool 2.0:
+# Python CLI Tool 2.0 — Architecture, OOP, Logging & Systems Thinking
 
-I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. 
+This project is an improved and more intentional redesign of my original Python CLI tool. The goal was not to add complexity for its own sake, but to practice **clean structure, separation of concerns, and maintainable design patterns** that scale beyond single-file scripts.
 
-I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data.
+---
 
-As long as input is filtered correctly and the user enters a working file path, then the rest of the program will function there's no room for error really.  
-However, I intend to implement logging to more complex security scripts etc so the skills learned weren't in vain. 
+## 1. What I Built
 
-• Why did you introduce classes:
-Classes were valuable in creating effective OOP, I can now call tried and tested functions from my own module,  instead of having one massive script or uncertainty trying to achieve the same goal using Global vars etc to handle input/ output results. I focused on Single responsibility to ensure that each function did one action towards the classes bigger goal, in this instance of file handling.
+### Python CLI Tool (Refactored Version)
 
-• Why you separated CLI from logic:
-I knew logic and CLI code were spot on, but wanted less mess on my __main__.py script and using OOP to turn logic/ CLI into their own modules, helped in turn to reduce the overall amount of bugs and streamline the debugging process.
+I redesigned my original CLI file analysis tool with a focus on **project structure and software design**, rather than raw functionality.
 
-• Why logging beats print:
-Logging can be saved and stored permanently, say you are running an automatic script and want to capture errors etc, you wouldn’t get that if you didn’t run the script then sit and watch for print outputs which is of course impractical, so having a structured logging process to ensure data isn't lost is effective.
+Key improvements:
+- Clear directory structure (`src/`, `output/`, `README.md`)
+- Modular codebase using classes
+- Separation of CLI handling from core logic
+- Introduction of structured logging
 
-What confused me:
-I used to be confused about where data actually lives while a program is running. I wasn’t sure when the CPU was writing to RAM, when it was writing to the hard drive, or whether RAM itself acted like a cache. I didn’t realise the CPU had its own dedicated cache and assumed RAM was the cache.
+The tool still performs simple file parsing and filtering, but the architectural decisions were the real learning objective.
 
-Now I understand the hierarchy much better. RAM holds the working data for the current session, but it’s still much slower than the CPU. When the system powers off, anything in RAM is lost, and only the data explicitly saved by the operating system or applications is written to the hard drive or SSD.
+---
 
-The CPU, however, has its own built‑in cache—tiny, extremely fast, and very expensive memory. This cache stores only the most performance‑critical data, the things the CPU is likely to need again very soon. 
+## 2. Project Structure & Design Choices
 
-It uses the same basic idea as all memory systems: data is stored at specific addresses in a structured layout. The difference is that the CPU cache organises this data into cache lines and lookup tables that allow the processor to check extremely quickly whether the data it needs is already there.
+### Why I Introduced Classes
+Classes allowed me to move away from:
+- Monolithic scripts
+- Excessive global state
+- Unclear data flow between functions
 
-In short:
-	• Hard drive/SSD → long‑term storage
-	• RAM → fast, temporary working memory for the whole system
-	• CPU cache → ultra‑fast, tiny memory for the CPU’s immediate needs
-	
-Full notes to support this are in CS fundamentals oneNote.
-I was also confused regarding HTTP caching, as learning the entire process from URL to DNS query>  web server> data back to client. Is complex. I understand it rather well now.
+Instead, I designed small, focused classes responsible for a **single, well-defined purpose**. Each method performs one action that contributes toward the class’s overall responsibility (e.g. file handling or analysis).
 
+This made it possible to:
+- Reuse tested logic across scripts
+- Improve readability
+- Reduce side effects
+- Debug issues in isolation
 
-Networks consolidation:
- Q1 — How does NAT work and why is subnetting important? 
- 
-How NAT Works
-	• Most LANs use private IPv4 addresses (e.g., 192.168.x.x, 10.x.x.x, 172.16–31.x.x).
-	• These addresses cannot be routed on the public internet.
-	• When a device with a private IP sends traffic out of the LAN, the router performs NAT (Network Address Translation).
-	• NAT rewrites:
-		○ The source IP (private → public)
-		○ Often the source port (PAT)
-	• The router stores this in a translation table, so when replies return, it knows which internal device to forward them to.
-	
-This allows:
-	• Hundreds of internal devices to share one public IP
-	• Conservation of IPv4 address space
-	• A basic security layer (internal hosts aren’t directly exposed)
+---
 
-IPv6 and NAT
-	• IPv6 has 128‑bit addresses, giving an astronomically large address space (Doesn’t need NAT therefor)
-	• Every device can have a globally unique address.
-	• IPv6 uses prefix types (global unicast, link‑local, unique local, multicast), but routers do not rewrite addresses like NAT.
-	• Instead, IPv6 relies on firewalls for protection, not NAT.
+### Why I Separated CLI from Logic
+While the original logic worked correctly, mixing CLI handling and processing logic made the entry point (`__main__.py`) cluttered and harder to reason about.
 
-Why Subnetting Is Important
-Subnetting allows you to divide a larger network into smaller, structured segments. This is essential for:
-	• Efficient IP allocation (avoid wasting addresses)
-	• Broadcast domain control (limit unnecessary traffic)
-	• Security boundaries (e.g., servers vs. clients)
-	• Routing efficiency (clear network hierarchy)
+Separating them achieved:
+- Cleaner program entry point
+- Easier debugging
+- Better testability
+- Fewer unintended bugs
 
-Q2 — What can go wrong when networks aren’t subnetted correctly? 
-Problems Caused by Incorrect Subnetting
-1. Devices can’t communicate
-If two devices should be in the same subnet but aren’t:
-	• ARP fails
-	• They send traffic to the router unnecessarily
-	• Or they can’t reach each other at all
+The CLI layer now only:
+- Validates input
+- Parses arguments
+- Passes clean data to the logic layer
 
-3. Broadcast traffic leaks or fails
-Bad subnetting can cause:
-	• Broadcasts reaching the wrong hosts
-	• Broadcasts not reaching the intended hosts
-	• Excessive broadcast traffic in oversized subnets
+---
 
-5. Routing failures
-Incorrect subnet masks can cause:
-	• Routing loops
-	• Black holes
-	• Traffic being sent to the wrong gateway
+### Why Logging Beats `print()`
+Although logging added little functional value for this specific tool, it was a deliberate learning choice.
 
-7. IP address conflicts
-If two subnets overlap due to incorrect masks:
-	• Devices may think they’re on the same network when they aren’t
-	• ARP replies collide
-	• Connectivity becomes unpredictable
+Logging allows:
+- Persistent records of execution
+- Error capture in unattended or automated runs
+- Different severity levels (INFO, WARNING, ERROR)
 
-8. Internet access failures
-If the default gateway is in a different subnet than the host (mask mismatch), the host cannot reach it.#
+Unlike `print()`, logs don’t require a user watching the terminal. This pattern will be essential in future security scripts, scheduled jobs, and monitoring tools.
 
+---
 
-CS basics:
+## 3. What Confused Me (and Now Makes Sense)
 
-I’ve been learning how memory is handled at the hardware level. RAM is organised into individual bytes, and each byte has its own address.
-Because of this, storing larger data types—like a 4‑byte integer or a long string—requires multiple consecutive memory locations.
+### Where Data Actually Lives During Execution
+Initially, I misunderstood how memory works while a program is running. I assumed RAM itself acted as a cache and didn’t fully grasp when data is written to disk versus memory.
 
-Most data types have a fixed size in memory, but strings are different. A string is essentially an array of characters, and its size depends on how many characters it contains.
-Each character typically occupies one byte, and the characters are stored sequentially in memory. 
-To mark the end of the string, a null byte (\0) is added, which tells the system where the string finishe
+I now understand the hierarchy clearly:
 
-CPU Cache
-The CPU cache is a small, high‑speed memory area inside the processor that stores data copied from RAM. 
-It decides what to keep based on temporal and spatial locality, allowing the CPU to access frequently used data much faster. 
+- **Hard drive / SSD** → Long-term persistent storage
+- **RAM** → Fast, temporary working memory (cleared on power-off)
+- **CPU cache** → Extremely fast, very small memory inside the CPU
 
-This dramatically improves performance because it avoids repeatedly fetching data from slower storage.
-When the CPU needs data from a specific memory address, it first checks the cache.
-	• If the data is found, it’s called a cache hit.
-	• If not, it’s a cache miss, and the CPU must fetch the data from RAM.
-	
-Locality of Reference
-	• Temporal locality: Data that was recently accessed is likely to be accessed again soon.
-	• Spatial locality: Data stored near recently accessed memory locations is also likely to be needed.
-For example, in a video game, if the program reads the health value of character 1, the health of character 2 is probably stored nearby and may be accessed shortly after.
-These principles guide the CPU in deciding which data should be kept in the cache.
+The CPU cache stores only the most performance-critical data and operates on cache lines using fast lookup tables. It exists purely to minimise slow memory access to RAM.
 
-Cache Levels
-Modern CPUs typically use multiple cache levels:
-	• L1 cache – the fastest, smallest, and most expensive per byte
-	• L2 cache – larger and slower than L1
-	• L3 cache – the largest and slowest, but still much faster than RAM
-Each level balances speed, size, and cost.
+This clarified a lot of performance behaviour I previously accepted without understanding.
 
-Instruction vs Data Cache
-Caches are often split into two types:
-	• Instruction cache – stores CPU instructions
-	• Data cache – stores data values and memory addresses for quick access
-This separation helps the CPU fetch instructions and data in parallel, improving efficiency.
+---
 
+### HTTP Caching
+The full flow from:
+URL → DNS → web server → response → caching  
+was initially overwhelming.
 
+After revisiting it alongside networking fundamentals, I now understand:
+- Where browser and OS caching occurs
+- How HTTP caching reduces repeated network calls
+- Why CDNs sit between clients and origin servers
 
+---
 
+## 4. Networking Consolidation
+
+### Q1 — How NAT Works and Why Subnetting Matters
+
+#### Network Address Translation (NAT)
+- Internal networks use private IPv4 ranges
+- These addresses are not routable on the public internet
+- Routers rewrite source IPs (and often ports) to a public IP
+- Translation tables track return traffic
+
+Benefits:
+- Multiple devices share one public IP
+- IPv4 address conservation
+- Basic isolation of internal hosts
+
+#### IPv6 and NAT
+IPv6 removes the need for NAT entirely:
+- Vast address space (128-bit)
+- Devices receive globally unique addresses
+- Security relies on firewalls, not address rewriting
+
+---
+
+### Why Subnetting Is Critical
+Subnetting enables:
+- Efficient address allocation
+- Reduced broadcast traffic
+- Logical security boundaries
+- Clear routing hierarchy
+
+---
+
+### Q2 — What Goes Wrong Without Proper Subnetting
+
+Common failures include:
+- Devices unable to communicate due to ARP issues
+- Broadcast traffic leaking or overwhelming networks
+- Routing loops or black holes
+- Overlapping subnets causing IP conflicts
+- Default gateways unreachable due to mask mismatches
+
+---
+
+## 5. Computer Science Fundamentals — Memory & Performance
+
+### How Memory Is Organised
+RAM is byte-addressable:
+- Each byte has its own address
+- Larger data types occupy consecutive memory locations
+
+Strings differ from fixed-size types:
+- Stored as character arrays
+- Terminated with a null byte (`\0`) to mark the end
+
+---
+
+### CPU Cache Fundamentals
+The CPU cache stores frequently used data copied from RAM.
+
+Key concepts:
+- **Cache hits** → data found in cache
+- **Cache misses** → data fetched from RAM
+
+The cache uses:
+- **Temporal locality** (recent data reused soon)
+- **Spatial locality** (nearby data likely accessed)
+
+---
+
+### Cache Levels
+Modern CPUs typically include:
+- **L1 cache** — smallest, fastest
+- **L2 cache** — larger, slightly slower
+- **L3 cache** — shared, largest, still far faster than RAM
+
+---
+
+### Instruction vs Data Cache
+Caches are often split:
+- Instruction cache → CPU instructions
+- Data cache → values and memory addresses
+
+This separation allows parallel fetching and improves execution speed.
+
+---
+
+## Final Reflection
+This project wasn’t about adding features — it was about **thinking like a systems engineer**.
+
+By restructuring a simple tool, I learned:
+- Why clean architecture matters early
+- How memory hierarchy affects performance
+- How networking concepts connect to real software behaviour
+
+These foundations will matter far more than any single script as projects grow in size and complexity.
