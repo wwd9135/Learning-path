@@ -1,7 +1,11 @@
 Week 3
-	1. What I built:
-Python CLI tool 2.0:
-I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data, as long as input is filtered correctly and the user enters a working file path, then the rest of the program will function there's no room for error really. However, I intend to implement logging to more complex security scripts etc so the skills learned weren't in vain. 
+
+1. What I built: Python CLI tool 2.0:
+
+I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. I implemented logging too to ensure more granular control of error messages, naturally this wasn't of much intrinsic value because of the function of this project, applying very simple filtering against a file to parse and extract data, as long as input is filtered correctly and the user enters a working file path, then the rest of the program will function there's no room for error really.  
+
+However, I intend to implement logging to more complex security scripts etc so the skills learned weren't in vain. 
+
 • Why did you introduce classes?
 Classes were valuable in creating effective OOP, I can now call tried and tested functions from my own module,  instead of having one massive script or uncertainty trying to achieve the same goal using Global vars etc to handle input/ output results. I focused on Single responsibility to ensure that each function did one action towards the classes bigger goal, in this instance of file handling.
 
