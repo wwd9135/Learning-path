@@ -1,5 +1,3 @@
-Week 3
-
 1. What I built: Python CLI tool 2.0:
 
 I designed an improved version of my CLI tool, the aim here was to enhance structure, bringing in README.md, src/ output folders/ modules & classes to ensure cleaner code. 
@@ -24,12 +22,14 @@ I used to be confused about where data actually lives while a program is running
 Now I understand the hierarchy much better. RAM holds the working data for the current session, but it’s still much slower than the CPU. When the system powers off, anything in RAM is lost, and only the data explicitly saved by the operating system or applications is written to the hard drive or SSD.
 
 The CPU, however, has its own built‑in cache—tiny, extremely fast, and very expensive memory. This cache stores only the most performance‑critical data, the things the CPU is likely to need again very soon. 
+
 It uses the same basic idea as all memory systems: data is stored at specific addresses in a structured layout. The difference is that the CPU cache organises this data into cache lines and lookup tables that allow the processor to check extremely quickly whether the data it needs is already there.
 
 In short:
 	• Hard drive/SSD → long‑term storage
 	• RAM → fast, temporary working memory for the whole system
 	• CPU cache → ultra‑fast, tiny memory for the CPU’s immediate needs
+	
 Full notes to support this are in CS fundamentals oneNote.
 I was also confused regarding HTTP caching, as learning the entire process from URL to DNS query>  web server> data back to client. Is complex. I understand it rather well now.
 
