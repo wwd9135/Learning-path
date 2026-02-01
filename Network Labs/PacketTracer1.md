@@ -4,7 +4,9 @@ This lab involved designing and implementing a **two-LAN enterprise-style networ
 
 ### VLAN and Switching Design
 
-Four VLANs were created to represent separate office networks, each mapped to its own IP subnet. Access switches were configured with **access ports** assigned to the appropriate VLANs, while uplinks between access and core switches were configured as **802.1Q trunks** carrying multiple VLANs.
+Four VLANs were created to represent separate office networks, each mapped to its own IP subnet. 
+
+Access switches were configured with **access ports** assigned to the appropriate VLANs, while uplinks between access and core switches were configured as **802.1Q trunks** carrying multiple VLANs.
 
 Key concepts and configurations included:
 - `switchport mode access`
