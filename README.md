@@ -25,7 +25,7 @@ Most findings are derived from a controlled sandbox environment consisting of:
 
 
 
-## 📈 Professional Growth Tracking
+## Professional Growth Tracking
 This repository is updated weekly to reflect ongoing learning. It serves as a transparent record of my technical evolution, moving from basic networking fundamentals to complex security orchestration and automation.
 
 ---
