@@ -27,8 +27,6 @@ This solved three critical issues:
 
 
 
-[Image of the incident response lifecycle showing detection, containment, eradication, and recovery]
-
 
 ### Outcome & Next Steps
 I have successfully validated the end-to-end pipeline:
