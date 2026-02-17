@@ -1,9 +1,28 @@
-# Week 8 – Logging & Testing
-This week I built a Windows Event Log parser with a strong focus on robustness. I added checks to ensure the input file type was valid, corrected malformed data, and introduced parameters for timestamp filtering, specific event IDs, and keyword matching. These additions made the parser far more usable and complete.
-I enjoyed producing a project that was simple on the surface but highly reliable underneath.
+# Project Writeup: Windows Event Log Parser
+## Week 8: Robustness, OOP, and Graceful Recovery
 
-I incorporated structured logging and four rounds of testing to cover edge cases, and I deepened my understanding of OOP—especially how to use data classes effectively to keep the code clean and maintainable.
-The most challenging part was handling timestamps. 
+This week, I focused on transforming a basic script into a production-ready **Windows Event Log Parser**. The goal was to build a tool that isn't just "functional" but highly reliable when faced with the messy, inconsistent data found in real-world enterprise environments.
 
-Getting the formatting right required learning more about CLI arguments and the argparse module. Data normalisation was another difficult area: dealing with broken or inconsistent XML logs meant figuring out how to parse data even when elements like <event> were missing or misaligned. Understanding these common issues helped me design the parser to recover gracefully from bad input.
-I’m pleased with the final result. I can now download full event logs from any device at work and run them through my parser automatically, saving time and avoiding the frustration of manually digging through messy XML.
+### Technical Deep Dive: Reliability Engineering
+I implemented several layers of robustness to ensure the parser handles enterprise-scale telemetry without crashing:
+- **Input Validation:** Added strict file-type checks and encoding handlers to manage hidden Byte Order Marks (BOM) often found in Windows XML exports.
+- **Advanced Filtering:** Integrated `argparse` to allow for granular CLI parameters, including specific Event ID isolation, keyword matching, and ISO 8601 timestamp filtering.
+- **Structured Logging:** Moved away from print statements to a formal logging schema, allowing for better debugging and audit trails of the parsing process.
+
+
+
+### Key Challenges: The "Messy Data" Problem
+The most significant hurdle was **Data Normalization** within broken or malformed XML structures.
+
+**The Challenge:**
+Standard XML parsers often fail when elements like `<Event>` are misaligned or missing due to export errors. Additionally, handling Windows timestamps and converting them into a searchable format via the CLI required a deep dive into Python's `datetime` and `argparse` modules.
+
+**The Solution:**
+- **OOP & Data Classes:** I refactored the core logic using Python **Data Classes**. This kept the code clean and allowed me to treat each log entry as a structured object, making the data much easier to manipulate and filter.
+- **Error Recovery Layer:** I designed a "graceful recovery" mechanism that identifies malformed XML blocks and attempts to correct them or skip them without breaking the entire execution pipeline.
+
+
+### Outcome
+I’ve produced a tool that I can now use practically in my role at the Met Office. I can download full event logs from any device in the estate and run them through this parser to bypass the frustration of manual XML review. 
+
+**The Result:** A reliable, high-speed utility that turns raw, messy XML into actionable security intelligence.
