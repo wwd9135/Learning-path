@@ -1,20 +1,32 @@
-# Week 7 – Testing
+# Project Writeup: Automation & Quality Assurance
+## Week 7: Scaling Security Operations via Graph API and Pytest
 
-This week I explored software testing in depth, and it became clear just how essential it is for building reliable, maintainable code. Pytest in particular stood out as a powerful framework far beyond the basic, intuition‑driven testing I’ve relied on so far. It enables thorough validation of a module’s behaviour, supports testing deep edge cases, and makes it easy to simulate a wide range of inputs, environments, and application states.
+This week focused on two pillars of engineering: **automated remediation at scale** and **formalized software testing**. I moved away from manual "spot-checking" toward building high-bandwidth automation for the Met Office's 4,500+ device estate.
 
-At first, I struggled to understand why formal testing was necessary, since my previous projects worked fine with simple manual checks. But learning pytest showed me how much more robust and scalable proper testing can be. Features like parametrised tests, fixtures, and environment simulation make it possible to test complex scenarios and ensure code behaves correctly under all conditions.
+### Technical Deep Dive: Bridging the "Data Silo" Gap
+I addressed a critical bottleneck where 120 devices were failing to receive patches. The original manual plan was estimated to take dozens of man-hours; I chose to automate the entire triage pipeline using PowerShell and cross-platform APIs.
 
-Going forward, I plan to integrate structured tests into all of my production‑level or deployed projects, and include at least some basic automated tests in my personal work. This will help me build more reliable software and catch issues early in development.
+**The Multi-Source Integration:**
+- **Microsoft Graph & KQL:** Leveraged Advanced Hunting (KQL) and the Graph API to pull live telemetry from Defender for Endpoint and Intune.
+- **ServiceNow REST API:** Built a custom connection to ServiceNow to enrich device IDs with Hardware Asset Management (HAM) data, including physical location and ownership history.
+- **The "Smoking Gun" Analysis:** By consolidating four data sources into a single structured format, I identified systemic patterns—such as DHCP failures (APIPA addresses) and missing Intune Management Extensions—that would have been invisible during small-batch manual reviews.
 
----
 
-I developed several PowerShell scripts this week, with the most significant work focused on analysing 120 devices that weren’t receiving patches. The original plan was for five of us to check them manually, but I chose to automate the entire process by pulling data from Intune and Defender using the Graph API and advanced hunting KQL queries. This was challenging at first—learning KQL syntax, working with the Graph PowerShell module, and getting comfortable querying the Graph REST API—but it allowed me to compile all the information into a clean, readable format.
 
-I also integrated data from ServiceNow, which stores our Hardware Asset Management records such as device ownership history and physical location. This required building my own REST API connection to ServiceNow. Automating this step made a huge difference: instead of manually checking four separate data sources for each device, the script consolidated everything instantly. This dramatically sped up the troubleshooting process and prevented the team from missing patterns that only become obvious when analysing all 120 devices together rather than small batches.
+### Custom Tooling Developed:
+- **Unified Triage Script:** A KQL-driven hunt targeting devices missing 2+ patches, returning IP, OS version, AV health, and sensor states.
+- **Network Reachability Module:** A script that parses Defender’s JSON output to ping-test reachable devices while intelligently skipping APIPA (169.254.x.x) addresses.
+- **Hybrid-Join Validator:** A specialized checker to verify that Intune management extensions and Group Policies are correctly pushing cloud telemetry on hybrid-joined devices.
 
-The main KQL hunt I built gathered devices missing two or more patches and pulled details such as IP address, assigned user, OS version, AV version, and sensor states. From there, I created additional scripts to act on or enrich this data:
 
-- **Ping‑check script:** Loops through Defender’s JSON output, pings each IP, and generates a structured report showing which devices are reachable. It also identifies APIPA addresses (169.254.x.x), which indicate DHCP failure or device inactivity, and skips pinging them.
-- **Intune compliance checker:** Takes Defender’s device list and verifies managed state, assigned user, last check‑in, and login data. This helps confirm that Defender’s telemetry matches Intune’s records. For hybrid‑joined devices, it also checks that the Intune management extension and required group policies are present, since these are responsible for cloud telemetry submission.
 
-I really enjoyed working on the automation and data‑flow side of this project, and I’m planning to build a Power BI dashboard to visualise the results. It would give us faster, clearer oversight of the estate and highlight the patterns and “smoking guns” I found—many of which would have been missed if the team had manually reviewed only 20 devices each instead of analysing the full dataset.
+### Software Quality: Moving to Pytest
+Parallel to the infrastructure work, I deepened my investment in **Software Testing**. Moving beyond "intuition-based" checks, I adopted **Pytest** to ensure my security tools are robust and maintainable.
+
+**Key Learnings:**
+- **Parametrization:** Using pytest to run multiple test cases through the same logic to catch edge cases in log parsing.
+- **Fixtures & Mocking:** Learning to simulate different environment states and API responses without hitting live production endpoints.
+- **Scalability:** Understanding that formal testing isn't just a "nice-to-have"—it's the only way to ensure that as my tools (like WFTAF) grow, they don't break under new conditions.
+
+### Outcome
+The automation transformed a week-long manual task into a near-instant diagnostic report. This experience solidified my direction: **Security is a data problem.** By building tools that consolidate data and validating them with rigorous testing, I can solve enterprise-scale vulnerabilities that manual teams simply cannot reach.
