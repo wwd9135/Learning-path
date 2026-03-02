@@ -1,15 +1,15 @@
 # WTFAF Project – Week 11 Update
 
-## 🛠️ What I Built This Week
+## What I Built This Week
 
 This week was packed with solid progress on my WTFAF triage tool and a lot of PowerShell/KQL engineering:
 
-### 🔐 Finalised Hashing & File Integrity  
+### Finalised Hashing & File Integrity  
 I completed the hashing mechanism for WTFAF.  
 - Every artefact produced by the PowerShell triage script now receives a guaranteed‑integrity hash.  
 - The Python parser refuses to read files unless the hash matches **perfectly**, ensuring the evidence remains trustworthy, tamper‑proof, and courtroom‑ready.
 
-### 🧩 PowerShell & KQL Work  
+### PowerShell & KQL Work  
 A big chunk of my time was spent building tooling to make vulnerability hunting less painful:
 
 - **Advanced KQL Hunt in Microsoft Defender:**  
@@ -23,7 +23,7 @@ A big chunk of my time was spent building tooling to make vulnerability hunting 
 
 ---
 
-## 🤯 What I Struggled With
+## What I Struggled With
 
 The main challenge was enumerating vulnerability counts during advanced threat hunting in Defender.  
 A lot of devices were placed in incorrect OUs — for example, **Windows Server 2019 machines sitting inside a 2022 OU**, pulling the wrong policies. This led to a flood of false positives and confusing configuration mismatches.
@@ -32,7 +32,7 @@ Understanding the internal structure (or lack thereof) was the hardest part.
 
 ---
 
-## 🚀 Outcomes & Next Steps
+## Outcomes & Next Steps
 
 - **WTFAF Parsing Logic:**  
   I’ll be finishing the parsing engine, then drafting a roadmap for integrating an LLM — maybe even a custom one.
