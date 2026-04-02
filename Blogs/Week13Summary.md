@@ -35,7 +35,7 @@ IsEncrypted                : True
 IsSupervised               : False
 ExchangeAccessState        : allowed
 ExchangeAccessStateReason  : compliant
-
+```
 I decided that querying the entire Intune tenant for this level of detail was too bulky and inefficient for regular use. In most practical scenarios (incident response, audits, investigations), only a subset of devices is relevant.
 To address this, I added an initial filtering mechanism based on hostnames, allowing the script to consume a CSV list of devices and only query those endpoints. This approach dramatically reduces unnecessary Graph API calls and makes the script much more suitable for real‑world SecOps workflows.
 ## Planned Enhancements
