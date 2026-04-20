@@ -85,10 +85,9 @@ Scans for outbound data exfiltration patterns across known transfer methods and 
 **[Suspicious Process Execution Rule](Assets/SuspiciousProcess.KQL)**
 Targets MITRE T1059 — detects encoded command-line arguments and unusual interpreter invocations.
 
-```kql
-// Detection logic focuses on behavioural intent, not payload content.
-// Encoded commands are a strong obfuscation indicator regardless of payload.
-// Misc of queries used while threat hunting- ![KQL](Assets\MiscQueries.kql)
+- Detection logic focuses on behavioural intent, not payload content.
+- Encoded commands are a strong obfuscation indicator regardless of payload.
+- Misc of queries used while threat hunting- ![KQL](Assets\MiscQueries.kql)
 ```
 
 ---
