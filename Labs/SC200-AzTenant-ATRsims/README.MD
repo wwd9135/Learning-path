@@ -142,5 +142,7 @@ Moving from simple `where` filters to joins across tables, time-windowed aggrega
 ## 🧠 About
 
 Built as a hands-on study environment for the **SC-200: Microsoft Security Operations Analyst** certification. The aim was to go beyond exam prep and simulate the kind of detection and response work done in a real SOC.
+
+
 Next Steps- Aiming to further utilize this lab to tackle AZ500 as I move to a detection engineering focused role in the coming weeks.
 
