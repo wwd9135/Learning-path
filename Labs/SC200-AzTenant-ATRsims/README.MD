@@ -1,5 +1,5 @@
 # Azure Sentinel & Defender XDR Home Lab
-### SC-200: Microsoft Security Operations Analyst — Passed(802) ✅
+### SC-200: Microsoft Security Operations Analyst — Passed (802) ✅
 
 > A self-built Azure security lab simulating a realistic corporate environment — covering attack simulation, detection engineering, threat hunting, and automated incident response.
 
@@ -59,7 +59,7 @@ Atomic Red Team was installed on a test VM and executed across a full attack cha
 - Endpoint switched to **audit-only mode** to prevent auto-blocking during simulation ([AuditMode.ps1](Assets/AuditMode.ps1))
 - Full telemetry captured before prevention mechanisms interfere
 - Process trees, command-line arguments, and parent-child relationships recorded for detection validation
-- Outcome: [Incident timeline](Assets\IncidentTimeline.png)
+- Outcome: ![Incident timeline](Assets/IncidentTimeline.png)
 ---
 
 ### 🔍 Detection Engineering
@@ -99,8 +99,10 @@ Targets MITRE T1059 — detects encoded command-line arguments and unusual inter
 ```
 Detection Rule → Sentinel Incident → Automation Rule → Playbook Trigger → Analyst Notification
 ```
+**Playbook: Suspicious Process Response** 
 
-**Playbook: Suspicious Process Response** ([View](Assets/SentinelPlaybook.png))
+
+![View](Assets/SentinelPlaybook.png)
 
 When a suspicious process incident is triggered, the playbook automatically:
 1. **Enriches the alert** — queries IPVoid for domain/IP reputation, triggers Defender deep scan on associated files
@@ -119,7 +121,7 @@ When a suspicious process incident is triggered, the playbook automatically:
 | [`Assets/AuditMode.ps1`](Assets/AuditMode.ps1) | PowerShell script to set a Windows endpoint to audit-only mode |
 | [`Assets/InternetExfil.kql`](Assets/InternetExfil.kql) | KQL analytic rule — internet exfiltration detection |
 | [`Assets/SuspiciousProcess.KQL`](Assets/SuspiciousProcess.KQL) | KQL hunt — MITRE T1059 suspicious command-line execution |
-| [`Assets/SentinelPlaybook.webp`](Assets/SentinelPlaybook.webp) | Sentinel playbook diagram |
+| [`Assets/SentinelPlaybook.webp`](Assets/SentinelPlaybook.png) | Sentinel playbook diagram |
 
 ---
 
