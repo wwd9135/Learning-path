@@ -88,7 +88,6 @@ Targets MITRE T1059 — detects encoded command-line arguments and unusual inter
 - Detection logic focuses on behavioural intent, not payload content.
 - Encoded commands are a strong obfuscation indicator regardless of payload.
 - Misc of queries used while threat hunting- ![KQL](Assets\MiscQueries.kql)
-```
 
 ---
 
