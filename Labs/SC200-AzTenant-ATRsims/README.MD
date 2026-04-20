@@ -58,7 +58,7 @@ Atomic Red Team was installed on a test VM and executed across a full attack cha
 - Endpoint switched to **audit-only mode** to prevent auto-blocking during simulation ([AuditMode.ps1](Assets/AuditMode.ps1))
 - Full telemetry captured before prevention mechanisms interfere
 - Process trees, command-line arguments, and parent-child relationships recorded for detection validation
-
+- Outcome: [Incident timeline](Assets\IncidentTimeline.png)
 ---
 
 ## 🔍 Detection Engineering
@@ -99,7 +99,7 @@ Targets MITRE T1059 — detects encoded command-line arguments and unusual inter
 Detection Rule → Sentinel Incident → Automation Rule → Playbook Trigger → Analyst Notification
 ```
 
-**Playbook: Suspicious Process Response** ([View](Assets/SentinelPlaybook.webp))
+**Playbook: Suspicious Process Response** ([View](Assets/SentinelPlaybook.png))
 
 When a suspicious process incident is triggered, the playbook automatically:
 1. **Enriches the alert** — queries IPVoid for domain/IP reputation, triggers Defender deep scan on associated files
