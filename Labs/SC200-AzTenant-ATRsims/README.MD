@@ -5,7 +5,8 @@
 
 ---
 
-## 🎯 What This Lab Demonstrates
+
+### 🎯 What This Lab Demonstrates
 
 | Area | Skills |
 |---|---|
@@ -18,7 +19,7 @@
 
 ---
 
-## 🏗️ Architecture
+### 🏗️ Architecture
 
 The lab is built as a **closed Azure environment** to safely simulate attacker behaviour and validate detections end-to-end.
 
@@ -43,7 +44,7 @@ Playbook / Automation Rule  (Enrichment → Response → Analyst alert)
 
 ---
 
-## ⚔️ Attack Simulation
+### ⚔️ Attack Simulation
 
 Atomic Red Team was installed on a test VM and executed across a full attack chain, mapped to MITRE ATT&CK:
 
@@ -61,9 +62,9 @@ Atomic Red Team was installed on a test VM and executed across a full attack cha
 
 ---
 
-## 🔍 Detection Engineering
+### 🔍 Detection Engineering
 
-### Key Sentinel Tables Used
+#### Key Sentinel Tables Used
 
 | Table | Purpose |
 |---|---|
@@ -92,7 +93,7 @@ Targets MITRE T1059 — detects encoded command-line arguments and unusual inter
 
 ---
 
-## 🤖 Automated Incident Response
+### 🤖 Automated Incident Response
 
 **Incident Flow:**
 ```
@@ -111,7 +112,7 @@ When a suspicious process incident is triggered, the playbook automatically:
 
 ---
 
-## 📂 Repository Contents
+### 📂 Repository Contents
 
 | File | Description |
 |---|---|
@@ -122,7 +123,7 @@ When a suspicious process incident is triggered, the playbook automatically:
 
 ---
 
-## 💡 Key Takeaways
+### 💡 Key Takeaways
 
 **1. False positives are the real enemy**
 Building detections that fire accurately matters more than building ones that fire often. Every noisy rule degrades analyst trust in the whole system. Correlating across multiple signals before alerting was a consistent focus.
