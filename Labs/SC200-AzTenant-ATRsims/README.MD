@@ -14,8 +14,8 @@ The lab is built as a **closed Azure environment** to safely simulate attacker b
 
 **Core Components:**
 - **Azure Virtual Machines (Windows 10/11)**
-  - Onboarded to Microsoft Defender for Endpoint (MDE)
-  - Used for attack simulation and telemetry generation
+  - Onboarded to Microsoft XDR+ full defence suite.
+  - Used for attack simulation and telemetry generation (Atomic red team)
 
 - **Microsoft Defender for Endpoint (MDE)**
   - Primary telemetry source (process, network, registry, logon events)
@@ -26,7 +26,7 @@ The lab is built as a **closed Azure environment** to safely simulate attacker b
   - Connected to MDE via the native data connector
 ### Data Ingestion & Tables
 
-Key Sentinel tables used:
+Key Sentinel tables used in analytic rules/ Advanced hunting:
 
 - `DeviceProcessEvents` → Process creation & command-line visibility  
 - `DeviceNetworkEvents` → Outbound/inbound network connections  
@@ -34,7 +34,7 @@ Key Sentinel tables used:
 - `DeviceFileEvents` → File creation/modification  
 - `DeviceRegistryEvents` → Registry persistence & changes  
 
-Focus was placed on **correlating across tables**, not relying on single-event detections.
+Focus was placed on **correlating across tables**, not relying on single-event detections, also utilizing aggregate alerts/ UEBA as opposed to soley single event alerts.
 
 ---
 
@@ -63,7 +63,7 @@ Detections were built using **KQL in Sentinel**, focusing on behavioural pattern
 
 #### Example: Suspicious Discovery Commands
 
-
+# TODO - turn these into KQL code boxes.
 DeviceProcessEvents
 | where Timestamp > ago(1h)
 | where FileName in~ ("whoami.exe", "net.exe", "ipconfig.exe")
@@ -83,65 +83,7 @@ DeviceProcessEvents
 - Detection focuses on behavioural intent, not payload content
 - Detection Validation Methodology
 
-Each detection follows a repeatable validation cycle:
-
-Simulate Technique
-Execute Atomic Red Team test
-Capture Telemetry
-Identify relevant tables and fields in Sentinel
-Build Detection Logic
-Write KQL query based on observed behaviour
-Test Against Data
-Confirm detection triggers on simulated attack
-Check for noise against baseline activity
-Tune
-Reduce false positives (e.g. filtering admin activity)
-Improve context (parent process, frequency, device role)
-Incident & Automation Workflow
-Analytic Rules
-Scheduled rules created from KQL queries
-Trigger incidents based on thresholds or patterns
-Playbooks (Logic Apps)
-Basic automation workflows:
-Alert enrichment
-Tagging suspicious hosts
-Notification pipelines
-
 Incident Flow
 
 Detection Rule → Sentinel Incident → Playbook Trigger → Analyst Review
 Threat Hunting Approach
-
-Threat hunting performed directly in Sentinel using KQL:
-
-Hypothesis-driven hunts
-Example: “What does abnormal discovery behaviour look like in this environment?”
-Techniques used:
-Time-based clustering (summarize, bin())
-Parent-child process tracing
-Outlier detection (rare processes / commands)
-Key Learnings
-Single-event detections are weak
-Context (frequency, sequence, parent process) is critical
-Telemetry quality defines detection quality
-Not all logs are equally useful—process + command-line data is high value
-Audit-first approach is essential
-Blocking too early hides valuable detection opportunities
-False positives come from lack of context
-Most noise was reduced by adding:
-Frequency thresholds
-Process lineage
-Device role awareness
-
----
-
-This is now strong enough that:
-- A hiring manager can see **how you think**
-- A detection engineer can see **you’re not guessing**
-- And most importantly—you’ve shown **methodology, not just tools**
-
-If you want to push it further later, add:
-- One **failed detection** and why it failed  
-- One **before vs after tuning example**  
-
-That’s the kind of detail that separates you from everyone else doing “SC-200 labs.”
