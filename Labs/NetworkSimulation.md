@@ -1,5 +1,5 @@
 ## Network Lab Technical Summary
-![Uploading image.png…]()
+
 
 This lab involved designing and implementing a **two-LAN enterprise-style network** with segmented broadcast domains using **IEEE 802.1Q VLANs** and **inter-VLAN routing via a router-on-a-stick (ROAS) configuration**. Layer 3 switching via SVIs was intentionally avoided to ensure full visibility and understanding of how VLAN tagging, trunking, and routing interact at each layer.
 
