@@ -1,5 +1,5 @@
 # Collection of queries used in SC200 lab & exam prep.
-
+#
 SecurityAlert
 | where TimeGenerated > ago(7d)
 | summarize AlertCount = count() by AlertName, AlertSeverity
