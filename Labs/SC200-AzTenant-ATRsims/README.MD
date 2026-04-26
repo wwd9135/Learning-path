@@ -85,11 +85,9 @@ Scans for outbound data exfiltration patterns across known transfer methods and 
 **[Suspicious Process Execution Rule](Assets/SuspiciousProcess.KQL)**
 Targets MITRE T1059 — detects encoded command-line arguments and unusual interpreter invocations.
 
-```kql
-// Detection logic focuses on behavioural intent, not payload content.
-// Encoded commands are a strong obfuscation indicator regardless of payload.
-// TODO: paste a redacted snippet here if you want to show KQL on the README
-```
+- Detection logic focuses on behavioural intent, not payload content.
+- Encoded commands are a strong obfuscation indicator regardless of payload.
+- Misc of queries used while threat hunting- ![KQL](Assets\MiscQueries.kql)
 
 ---
 
@@ -144,5 +142,7 @@ Moving from simple `where` filters to joins across tables, time-windowed aggrega
 ## 🧠 About
 
 Built as a hands-on study environment for the **SC-200: Microsoft Security Operations Analyst** certification. The aim was to go beyond exam prep and simulate the kind of detection and response work done in a real SOC.
+
+
 Next Steps- Aiming to further utilize this lab to tackle AZ500 as I move to a detection engineering focused role in the coming weeks.
 
